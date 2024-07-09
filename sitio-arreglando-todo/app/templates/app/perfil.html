@@ -1,0 +1,32 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block contenido %}
+<div class="container bg-dark" style="border-radius: 1rem;">
+    <div class="row">
+        <div class="col-sm-3 my-2">
+            <div class="card" style="width: 18rem;">
+                <img src="{% static 'img/fotoperfil.jpg' %}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Apasionado por la tecnología y el desarrollo web. Me encanta aprender nuevas habilidades y enfrentar desafíos creativos. En mi tiempo libre, disfruto explorar nuevas tecnologías y compartir conocimientos en comunidades online</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-8 my-2">
+            <div class="me-5">
+                <label for="disabledTextInput" class="form-label">Nombre</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="{{ usuario.username }}" disabled>
+            </div>
+            <div class="me-5 my-2">
+                <label for="disabledTextInput" class="form-label">Correo electronico</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="{{ usuario.email }}" disabled>
+            </div>
+            <div class="my-3 d-flex">
+                <a href="{% url 'editar_perfil' %}"> <i class="fa-solid fa-pen"></i> Editar</a>
+                <a class="btn btn-primary mx-4" href="{% url 'historial_compra' %}" role="button">Historial de compras</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contenido %}

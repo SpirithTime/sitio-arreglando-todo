@@ -1,0 +1,50 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block contenido %}
+
+            <div class="container">
+                <h1 class="h4">Usuarios</h1>
+                <p><a href="{% url "registro" %}" class="nodecolink"><i class="a-solid fa-plus" aria-hidden="true"></i> Registrar Usuario</p></a>
+                <div class="mt-2 table-responsive">
+                    <table class="table table-dark table-striped">
+                        <thead>
+                          <tr>
+                            <th>ID</th>
+                            <th>Usuario</th>
+                            <th>NOMBRE</th>
+                            <th>APELLIDOS</th>
+                            <th>E-MAIL</th>
+                            <th>ES ADMINISTRADOR</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                  
+                          {% for p in usuarios %}
+                          <td>{{p.id}}</td>
+                          <td>{{p.username}}</td>
+                          <td>{{p.first_name}}</td>
+                          <td>{{p.last_name}}</td>
+                          <td>{{p.email}}</td>
+                          <td>{{p.is_staff}}
+                          <td>
+                            <a href="{% url 'mod' p.id %}" role="button" class="btn btn-warning text-light"><i
+                                    class="fa-solid fa-pen text-white" aria-hidden="true"></i></a>
+                            <a href="{% url 'delete_producto' p.id %}" role="button" class="btn btn-danger"><i class="fa fa-trash"
+                                    aria-hidden="true"></i></a>
+                          </td>
+                          </td>
+                          
+                          </tr>
+                          {% endfor %}
+                          <tr>
+                        </tbody>
+                      </table>
+                  
+                    </div>
+                    <div class="col-sm-1"></div>
+                  </div>
+                  </div>
+                  
+
+{% endblock contenido %}

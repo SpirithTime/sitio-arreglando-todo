@@ -1,0 +1,61 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block contenido %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-1"></div> 
+        <div class="col-md-10">
+            <!-- Contenido de la columna central -->
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-9">
+                        <img src="./static/img/barco.jpg" class="img-fluid rounded-start" alt="..." style="height: 500px; width: 100%; object-fit: cover;">
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Quimeico</h5>
+                            <p class="card-text">Bienvenido a Quimeico, donde nos dedicamos a proporcionar soluciones innovadoras en productos relacionados con el agua. Descubre nuestra pasión por la calidad y el servicio al cliente, comprometidos con el bienestar y la sostenibilidad ambiental</p>
+                            <p class="card-text">contacto@quimeico.cl</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container text-center">
+                <div class="mt-4">
+                    <div class="row align-items-center">
+                        {% for p in productos %}
+                        <div class="col-sm-4 sm-4 rounded">
+                            <div class="card border border-secondary rounded">
+                                <a href="{% url 'detalle_producto' p.id %}">
+                                    <img src="{{ p.imagen.url }}" class="card-img-top" height="200" alt="{{ p.nombre_p }}">
+                                </a>
+                                <div class="card-body">
+                                    <p class="card-text">{{ p.nombre_p }}</p>
+                                </div>
+                            </div>
+                        </div>
+            
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div> 
+    </div>
+</div>
+
+
+
+
+<div class="container py-3">
+    <div class="row text-center">
+        <div class="col">
+            <h2>Valor actual del dólar y euro en pesos chilenos (CLP):</h2>
+            <p id="dolar-clp"></p>
+            <p id="euro-clp"></p>
+        </div>
+    </div>
+</div>
+
+{% endblock contenido %}

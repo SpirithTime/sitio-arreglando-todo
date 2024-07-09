@@ -1,0 +1,13 @@
+{% extends "app/base.html" %}
+
+{% block contenido %}
+<div class="container my-4">
+    <h2>Confirmar eliminación</h2>
+    <p>¿Estás seguro de que deseas eliminar esta boleta del historial de compras?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="{% url 'historial_compra' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock contenido %}

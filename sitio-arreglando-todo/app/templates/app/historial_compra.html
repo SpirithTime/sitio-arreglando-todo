@@ -1,0 +1,61 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block contenido %}
+
+<div class="container my-4">  
+    <div class="row">   
+        <div class="col-sm-6 my-3 d-flex">
+            <input class="form-control me-2" type="text" placeholder="Search">
+            <a class="btn btn-primary" href="{% url 'filtro' %}" role="button">Buscar</a>
+        </div>
+
+        <div class="col-sm-6 my-3">
+            <div class="dropdown ">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                    Ordernar por
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'filtro' %}">Nombre</a></li>
+                    <li><a class="dropdown-item" href="{% url 'filtro' %}">Fecha</a></li>
+                    <li><a class="dropdown-item" href="{% url 'filtro' %}">Categoria</a></li>
+                </ul>
+
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                    Precio
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'filtro' %}">Menor precio a mayor</a></li>
+                    <li><a class="dropdown-item" href="{% url 'filtro' %}">Mayor precio a menor</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2>Historial de compra</h2>
+
+    {% for boleta in boletas %}
+    <div class="d-flex row bg-dark me-5 mx-1 my-2">
+        {% for detalle in boleta.detalle_boleta_set.all %}
+        <div class="col-sm-4">
+            <img class="img-fluid" src="{{ detalle.producto.imagen.url }}" width="400" height="200">
+        </div>
+
+        <div class="col-sm-8">
+            <div class="my-2">
+                <h3>{{ detalle.producto.nombre }}</h3>
+                <p>{{ detalle.producto.descripcion }}</p>
+                <i class="fa-brands fa-xbox"></i>
+                <i class="fa-brands fa-steam"></i>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="col-sm-12 my-2">
+            <a href="{% url 'eliminar_boleta' boleta.id %}" class="btn btn-danger">Eliminar</a>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock contenido %}

@@ -1,0 +1,64 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block contenido %}
+<div class="container my-4">  
+    <div class="row">   
+        <div class="col-sm-6 my-3 d-flex">
+            <form method="get" action="{% url 'filtro' %}" class="d-flex w-100">
+                <input class="form-control me-2" type="text" name="q" placeholder="Search" value="{{ query }}">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </form>
+        </div>
+
+        <div class="col-sm-6 my-3">
+            <div class="dropdown d-inline">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                    Ordenar por
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'filtro' %}?order_by=name&q={{ query }}">Nombre</a></li>
+                    <li><a class="dropdown-item" href="{% url 'filtro' %}?order_by=price_asc&q={{ query }}">Menor precio a mayor</a></li>
+                    <li><a class="dropdown-item" href="{% url 'filtro' %}?order_by=price_desc&q={{ query }}">Mayor precio a menor</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2>Historial de compra</h2>
+
+    {% for producto in productos %}
+    <div class="d-flex row bg-dark me-5 mx-1 my-2">
+        <div class="col-sm-4">
+            <img class="img-fluid" src="{{ producto.imagen.url }}" width="400" height="200">
+        </div>
+
+        <div class="col-sm-8">
+            <div class="my-2">
+                <h3>{{ producto.nombre_p }}</h3>
+                <p>{{ producto.descripcion }}</p>
+                <i class="fa-brands fa-xbox"></i>
+                <i class="fa-brands fa-steam"></i>
+                <form method="post" action="{% url 'eliminar_producto' producto.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger mt-2">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="d-flex justify-content-center">
+        {% if productos.has_previous %}
+        <a class="btn btn-primary" href="?page={{ productos.previous_page_number }}{% if query %}&q={{ query }}{% endif %}{% if order_by %}&order_by={{ order_by }}{% endif %}">Anterior</a>
+        {% endif %}
+
+        <span class="mx-3">Página {{ productos.number }} de {{ productos.paginator.num_pages }}</span>
+
+        {% if productos.has_next %}
+        <a class="btn btn-primary" href="?page={{ productos.next_page_number }}{% if query %}&q={{ query }}{% endif %}{% if order_by %}&order_by={{ order_by }}{% endif %}">Siguiente</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock contenido %}
